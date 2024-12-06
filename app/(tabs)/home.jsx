@@ -1,5 +1,5 @@
-import { View, Text, Image, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import { View, Text, Image, TouchableOpacity, ScrollView, Alert, Modal } from "react-native";
+import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useRouter } from "expo-router";
 
@@ -14,12 +14,22 @@ const Home = () => {
 
   const router = useRouter();
 
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const [powerConsumption, setPowerConsumption] = useState(45);
+
+  // Show alert on load
+  useEffect(() => {
+    setModalVisible(true); // Directly show the modal instead of Alert.alert
+  }, []);
+
+
   const handleDemoPress = () => {
     router.push("/(tabs)/demo"); // Ensure this matches your actual path
   };
 
   const handleBatteryPress = () => {
-     router.push("/(tabs)/battery");
+    router.push("/(tabs)/battery");
   };
 
   const handleControlPress = () => {
@@ -32,6 +42,10 @@ const Home = () => {
 
   const handleKYBPress = () => {
     router.push("/(tabs)/kyb"); // Ensure this matches your actual path
+  };
+
+  const handlePowerPress = () => {
+    router.push(`/power?powerConsumption=${powerConsumption}`);
   };
 
   const toggleButton = (buttonName) => {
@@ -57,6 +71,39 @@ const Home = () => {
     <>
       <View className="bg-primary h-full">
         <SafeAreaView className="flex-1 px-4">
+          {/* Custom Alert Modal */}
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            {/* Background Overlay */}
+            <View
+              className="flex-1 justify-center items-center"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+            >
+              {/* Modal Content */}
+              <View className="bg-gray-800 rounded-lg p-6 w-4/5">
+                <Text className="text-red-500 text-lg font-bold mb-2">
+                  High Power Consumption
+                </Text>
+                <Text className="text-gray-300 mb-4">
+                  You're using {powerConsumption} kW/h! This may increase costs
+                  and strain your vehicle. Consider optimizing usage.
+                </Text>
+                <TouchableOpacity
+                  onPress={() => setModalVisible(false)}
+                  className="bg-secondary py-2 px-4 rounded-lg"
+                >
+                  <Text className="text-white text-center font-semibold">
+                    Got it
+                  </Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </Modal>
+
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
             {/* Car Details */}
             <View className="mt-6 flex-row items-center border-2 border-secondary rounded-xl p-6">
@@ -120,8 +167,11 @@ const Home = () => {
                 </View>
               </TouchableOpacity>
 
-              {/* Right Container */}
-              <View className="flex-1 border-2 border-secondary rounded-lg p-4 ml-2">
+              {/* Right Container wrapped in TouchableOpacity */}
+              <TouchableOpacity
+                className="flex-1 border-2 border-secondary rounded-lg p-4 ml-2"
+                onPress={handlePowerPress}
+              >
                 <Text className="text-white text-lg font-semibold">
                   Power Consumption
                 </Text>
@@ -131,13 +181,15 @@ const Home = () => {
                   {/* Warning Image */}
                   <Image
                     source={icons.warning} // Replace with your icon or image source
-                    className="w-14 h-14 mb-2"
+                    className="w-14 h-14"
                     resizeMode="contain"
                   />
-                  <Text className="text-red-500 text-4xl font-bold">60</Text>
+                  <Text className="text-red-500 text-4xl font-bold">
+                    {powerConsumption}
+                  </Text>
                   <Text className="text-gray-300 text-sm">kW/h</Text>
                 </View>
-              </View>
+              </TouchableOpacity>
             </View>
 
             {/* Car Control Section */}

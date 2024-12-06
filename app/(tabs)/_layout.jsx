@@ -58,6 +58,14 @@ const TabsLayout = () => {
             tabBarStyle: { display: "none" },
           }}
         />
+        <Tabs.Screen
+          name="power"
+          options={{
+            tile: "Power",
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+          }}
+        />
       </Tabs>
     </>
   );
