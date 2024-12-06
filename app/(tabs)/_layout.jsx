@@ -42,6 +42,14 @@ const TabsLayout = () => {
             tabBarStyle: { display: "none" },
           }}
         />
+        <Tabs.Screen
+          name="location"
+          options={{
+            tile: "Location",
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+          }}
+        />
       </Tabs>
     </>
   );

@@ -18,12 +18,16 @@ const Home = () => {
     router.push("/(tabs)/demo"); // Ensure this matches your actual path
   };
 
-  const handleSettingPress = () => {
-     router.push("/(tabs)/settings");
+  const handleBatteryPress = () => {
+     router.push("/(tabs)/battery");
   };
 
   const handleControlPress = () => {
     router.push("/(tabs)/control"); // Ensure this matches your actual path
+  };
+
+  const handleLocationPress = () => {
+    router.push("/(tabs)/location"); // Ensure this matches your actual path
   };
 
   const toggleButton = (buttonName) => {
@@ -50,59 +54,85 @@ const Home = () => {
       <View className="bg-primary h-full">
         <SafeAreaView className="flex-1 px-4">
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-            {/* Top Bar */}
-            <View className="flex-row justify-between items-center w-full p-2">
-              <TouchableOpacity onPress={handleSettingPress}>
-                <View className="border border-white rounded-lg p-2">
+            {/* Car Details */}
+            <View className="mt-6 flex-row items-center border-2 border-secondary rounded-xl p-6">
+              <View className="flex-1 flex-col justify-between mr-4">
+                <View className="mb-4">
+                  <Text className="text-white text-xl font-bold">
+                    Perodua My-Evee
+                  </Text>
+                  <Text className="text-gray-400 text-sm">SU541</Text>
+                </View>
+                {/* Action Button */}
+                <TouchableOpacity className="bg-secondary py-2 px-4 rounded-lg">
+                  <Text className="text-primary text-lg font-bold text-center">
+                    Change Car
+                  </Text>
+                </TouchableOpacity>
+              </View>
+
+              <View className="flex-1 items-center">
+                <Image
+                  source={images.myvi}
+                  className="w-full h-32"
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
+
+            {/* New Containers Section */}
+            <View className="mt-4 flex-row justify-between">
+              {/* Left Container wrapped in TouchableOpacity */}
+              <TouchableOpacity
+                className="flex-1 border-2 border-secondary rounded-lg p-4 mr-2"
+                onPress={handleBatteryPress}
+              >
+                <Text className="text-white text-lg font-semibold">
+                  Battery
+                </Text>
+                <Text className="text-gray-300 text-sm">
+                  Last charge 6 days ago
+                </Text>
+
+                {/* Image and Details Section */}
+                <View className="flex-row justify-between items-center mt-4">
+                  {/* Left Section: Battery Image */}
                   <Image
-                    source={icons.menu}
-                    className="w-6 h-6"
+                    source={images.battery} // Replace with your image source
+                    className="w-12 h-12"
                     resizeMode="contain"
                   />
+
+                  {/* Right Section: Battery Percentage and Distance */}
+                  <View className="flex-col items-end">
+                    <Text className="text-white text-lg font-bold">54%</Text>
+                    <View className="w-full h-[1px] bg-gray-500 my-2" />
+                    <Text className="text-white text-lg font-bold">130km</Text>
+                    <Text className="text-gray-300 text-sm">Moved</Text>
+                    <View className="w-full h-[1px] bg-gray-500 my-2" />
+                    <Text className="text-white text-lg font-bold">~145km</Text>
+                    <Text className="text-gray-300 text-sm">Left</Text>
+                  </View>
                 </View>
               </TouchableOpacity>
 
-              <View className="absolute inset-x-0 items-center">
-                <Text className="text-white text-2xl font-semibold">
-                  Produa e-MyVee
+              {/* Right Container */}
+              <View className="flex-1 border-2 border-secondary rounded-lg p-4 ml-2">
+                <Text className="text-white text-lg font-semibold">
+                  Power Consumption
                 </Text>
-              </View>
-              <View className="border-[1px] border-white p-2 rounded-lg">
-                <Image
-                  source={icons.profile}
-                  className="w-6 h-6"
-                  resizeMode="contain"
-                />
-              </View>
-            </View>
 
-            {/* Temperature and Location Section */}
-            <View className="mt-2 items-center">
-              <Text className="text-white text-xl font-bold">34°C</Text>
-              <Text className="text-gray-300 text-lg font-medium">
-                Kuala Lumpur, MY
-              </Text>
-            </View>
-
-            {/* Battery, Range, and Car Image Section */}
-            <View className="mt-6 flex-row items-center">
-              <View className="flex-[0.25] flex-col justify-between mr-4">
-                <View className="mb-6">
-                  <Text className="text-white text-3xl font-bold">85%</Text>
-                  <Text className="text-gray-400 text-xs">Battery</Text>
+                {/* Power Consumption Details */}
+                <View className="flex-col items-center mt-2">
+                  {/* Warning Image */}
+                  <Image
+                    source={icons.warning} // Replace with your icon or image source
+                    className="w-14 h-14 mb-2"
+                    resizeMode="contain"
+                  />
+                  <Text className="text-red-500 text-4xl font-bold">60</Text>
+                  <Text className="text-gray-300 text-sm">kW/h</Text>
                 </View>
-                <View>
-                  <Text className="text-white text-3xl font-bold">320 km</Text>
-                  <Text className="text-gray-400 text-xs">Estimated Range</Text>
-                </View>
-              </View>
-
-              <View className="flex-1 h-48 justify-center items-center">
-                <Image
-                  source={images.myvi}
-                  className="h-full w-full"
-                  resizeMode="contain"
-                />
               </View>
             </View>
 
@@ -178,6 +208,7 @@ const Home = () => {
               <TouchableOpacity
                 className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
                 style={{ marginBottom: 12 }}
+                onPress={handleLocationPress}
               >
                 <Text className="text-white text-lg font-semibold">
                   Location
