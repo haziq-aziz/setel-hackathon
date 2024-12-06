@@ -30,6 +30,10 @@ const Home = () => {
     router.push("/(tabs)/location"); // Ensure this matches your actual path
   };
 
+  const handleKYBPress = () => {
+    router.push("/(tabs)/kyb"); // Ensure this matches your actual path
+  };
+
   const toggleButton = (buttonName) => {
     switch (buttonName) {
       case "lock":
@@ -223,6 +227,7 @@ const Home = () => {
               <TouchableOpacity
                 className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
                 style={{ marginBottom: 12 }}
+                onPress={handleKYBPress}
               >
                 <Text className="text-white text-lg font-semibold">
                   Know Your Behavior
