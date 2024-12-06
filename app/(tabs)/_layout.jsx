@@ -66,6 +66,14 @@ const TabsLayout = () => {
             tabBarStyle: { display: "none" },
           }}
         />
+        <Tabs.Screen
+          name="kyc"
+          options={{
+            tile: "Kyc",
+            headerShown: false,
+            tabBarStyle: { display: "none" },
+          }}
+        />
       </Tabs>
     </>
   );
