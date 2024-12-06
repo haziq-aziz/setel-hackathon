@@ -48,6 +48,10 @@ const Home = () => {
     router.push(`/power?powerConsumption=${powerConsumption}`);
   };
 
+  const handleKYCPress = () => {
+    router.push("/(tabs)/kyc"); // Ensure this matches your actual path
+  };
+
   const toggleButton = (buttonName) => {
     switch (buttonName) {
       case "lock":
@@ -294,6 +298,7 @@ const Home = () => {
               <TouchableOpacity
                 className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
                 style={{ marginBottom: 12 }}
+                onPress={handleKYCPress}
               >
                 <Text className="text-white text-lg font-semibold">
                   Know Your Car
