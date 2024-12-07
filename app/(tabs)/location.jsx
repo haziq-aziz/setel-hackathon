@@ -17,6 +17,28 @@ const MapScreen = () => {
     longitude: 101.6964,
   };
 
+  // Example coordinates for EV charging stations (replace with real ones)
+  const evChargingStations = [
+    {
+      id: 1,
+      coordinate: { latitude: 3.100, longitude: 101.666 },
+      title: "EV Charging Station 1",
+      description: "Nearby Charging Point",
+    },
+    {
+      id: 2,
+      coordinate: { latitude: 3.096, longitude: 101.787 },
+      title: "EV Charging Station 2",
+      description: "Fast Charging Available",
+    },
+    {
+      id: 3,
+      coordinate: { latitude: 3.067, longitude: 101.684 },
+      title: "EV Charging Station 3",
+      description: "Public Access Charging",
+    },
+  ];
+
   return (
     <View style={styles.container}>
       {/* Back Button */}
@@ -61,6 +83,17 @@ const MapScreen = () => {
           strokeColor="#FF0000" // Route color
           strokeWidth={4} // Route thickness
         />
+
+        {/* EV Charging Station Markers */}
+        {evChargingStations.map((station) => (
+          <Marker
+            key={station.id}
+            coordinate={station.coordinate}
+            title={station.title}
+            description={station.description}
+            pinColor="green" // Color to differentiate EV stations
+          />
+        ))}
       </MapView>
     </View>
   );

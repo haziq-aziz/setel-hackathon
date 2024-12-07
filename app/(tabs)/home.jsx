@@ -49,6 +49,10 @@ const Home = () => {
     router.push(`/power?powerConsumption=25`); // Pass it to Power screen
   };
 
+  const handleCheckPress = () => {
+    router.push("/(tabs)/check"); // Ensure this matches your actual path
+  };
+
   useEffect(() => {
     if (router.query && router.query.updatedPower) {
       setPowerConsumption(parseFloat(router.query.updatedPower));
@@ -162,9 +166,11 @@ const Home = () => {
                   <Text className="text-gray-400 text-sm">SU541</Text>
                 </View>
                 {/* Action Button */}
-                <TouchableOpacity className="bg-secondary py-2 px-4 rounded-lg">
+                <TouchableOpacity 
+                className="bg-secondary py-2 px-4 rounded-lg"
+                onPress={handleCheckPress}>
                   <Text className="text-primary text-lg font-bold text-center">
-                    Change Car
+                    Check Car
                   </Text>
                 </TouchableOpacity>
               </View>

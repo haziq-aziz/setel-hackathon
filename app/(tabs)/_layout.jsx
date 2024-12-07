@@ -27,9 +27,9 @@ const TabsLayout = () => {
           }}
         />
         <Tabs.Screen
-          name="settings"
+          name="check"
           options={{
-            tile: "Settings",
+            tile: "Check",
             headerShown: false,
             tabBarStyle: { display: "none" },
           }}
