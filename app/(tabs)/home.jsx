@@ -116,6 +116,42 @@ const Home = () => {
           </Modal>
 
           <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
+            {/* Static Streak Feature */}
+            <View className="mt-6">
+              <Text className="text-white text-lg font-bold mb-2 text-center">
+                Week 1 Streak
+              </Text>
+              <View className="flex-row justify-between px-4">
+                {[
+                  { day: "Mon", active: true },
+                  { day: "Tue", active: true },
+                  { day: "Wed", active: true },
+                  { day: "Thu", active: false },
+                  { day: "Fri", active: false },
+                  { day: "Sat", active: false },
+                  { day: "Sun", active: false },
+                ].map((streak, index) => (
+                  <View key={index} className="flex-col items-center">
+                    <Image
+                      source={icons.streak}
+                      className="w-12 h-12"
+                      resizeMode="contain"
+                      style={{
+                        tintColor: streak.active ? "#FFB400" : "#6B7280",
+                      }}
+                    />
+                    <Text
+                      className={`mt-2 text-sm font-semibold ${
+                        streak.active ? "text-secondary" : "text-gray-500"
+                      }`}
+                    >
+                      {streak.day}
+                    </Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+
             {/* Car Details */}
             <View className="mt-6 flex-row items-center border-2 border-secondary rounded-xl p-6">
               <View className="flex-1 flex-col justify-between mr-4">

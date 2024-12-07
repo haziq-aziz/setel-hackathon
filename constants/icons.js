@@ -5,6 +5,7 @@ import shut from "../assets/icons/shut.png";
 import lock from "../assets/icons/lock.png";
 import unlock from "../assets/icons/unlock.png";
 import warning from "../assets/icons/warning.png";
+import streak from "../assets/icons/streak.png";
 
 export default {
   menu,
@@ -13,5 +14,6 @@ export default {
   shut,
   lock,
   unlock,
-  warning
+  warning,
+  streak
 };
