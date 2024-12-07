@@ -45,8 +45,15 @@ const Home = () => {
   };
 
   const handlePowerPress = () => {
-    router.push(`/power?powerConsumption=${powerConsumption}`);
+    setPowerConsumption(25); // Set to 25 kW/h immediately
+    router.push(`/power?powerConsumption=25`); // Pass it to Power screen
   };
+
+  useEffect(() => {
+    if (router.query && router.query.updatedPower) {
+      setPowerConsumption(parseFloat(router.query.updatedPower));
+    }
+  }, [router.query]);
 
   const handleKYCPress = () => {
     router.push("/(tabs)/kyc"); // Ensure this matches your actual path
@@ -137,11 +144,8 @@ const Home = () => {
 
             {/* New Containers Section */}
             <View className="mt-4 flex-row justify-between">
-              {/* Left Container wrapped in TouchableOpacity */}
-              <TouchableOpacity
-                className="flex-1 border-2 border-secondary rounded-lg p-4 mr-2"
-                onPress={handleBatteryPress}
-              >
+              {/* Left Container as a static View */}
+              <View className="flex-1 border-2 border-secondary rounded-lg p-4 mr-2">
                 <Text className="text-white text-lg font-semibold">
                   Battery
                 </Text>
@@ -169,7 +173,7 @@ const Home = () => {
                     <Text className="text-gray-300 text-sm">Left</Text>
                   </View>
                 </View>
-              </TouchableOpacity>
+              </View>
 
               {/* Right Container wrapped in TouchableOpacity */}
               <TouchableOpacity
@@ -179,16 +183,27 @@ const Home = () => {
                 <Text className="text-white text-lg font-semibold">
                   Power Consumption
                 </Text>
-
-                {/* Power Consumption Details */}
                 <View className="flex-col items-center mt-2">
-                  {/* Warning Image */}
-                  <Image
-                    source={icons.warning} // Replace with your icon or image source
-                    className="w-14 h-14"
-                    resizeMode="contain"
-                  />
-                  <Text className="text-red-500 text-4xl font-bold">
+                  {/* Conditionally Render the Icon */}
+                  {powerConsumption > 25 ? (
+                    <Image
+                      source={icons.warning} // Replace with your warning icon
+                      className="w-14 h-14"
+                      resizeMode="contain"
+                    />
+                  ) : (
+                    <Image
+                      source={icons.safe} // Replace with your safe icon
+                      className="w-14 h-14"
+                      resizeMode="contain"
+                    />
+                  )}
+                  {/* Conditionally Render Text */}
+                  <Text
+                    className={`text-4xl font-bold ${
+                      powerConsumption > 25 ? "text-red-500" : "text-secondary"
+                    }`}
+                  >
                     {powerConsumption}
                   </Text>
                   <Text className="text-gray-300 text-sm">kW/h</Text>
@@ -254,20 +269,6 @@ const Home = () => {
               <TouchableOpacity
                 className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
                 style={{ marginBottom: 12 }}
-              >
-                <Text className="text-white text-lg font-semibold">
-                  Climate
-                </Text>
-                <Image
-                  source={icons.menu}
-                  className="w-6 h-6"
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
-                style={{ marginBottom: 12 }}
                 onPress={handleLocationPress}
               >
                 <Text className="text-white text-lg font-semibold">
@@ -287,21 +288,6 @@ const Home = () => {
               >
                 <Text className="text-white text-lg font-semibold">
                   Know Your Behavior
-                </Text>
-                <Image
-                  source={icons.menu}
-                  className="w-6 h-6"
-                  resizeMode="contain"
-                />
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                className="bg-gray-900 p-4 rounded-lg flex-row justify-between items-center"
-                style={{ marginBottom: 12 }}
-                onPress={handleKYCPress}
-              >
-                <Text className="text-white text-lg font-semibold">
-                  Know Your Car
                 </Text>
                 <Image
                   source={icons.menu}

@@ -19,16 +19,22 @@ const Power = ({ route }) => {
   // Accessing the query safely
   const { powerConsumption: queryPowerConsumption } = router.query || {};
 
-  useEffect(() => {
-    if (queryPowerConsumption) {
-      setPowerConsumption(parseFloat(queryPowerConsumption)); // Set the power consumption from the query param
-    }
-  }, [queryPowerConsumption]);
+useEffect(() => {
+  if (queryPowerConsumption) {
+    setPowerConsumption(parseFloat(queryPowerConsumption));
+  } else {
+    setPowerConsumption(25); // Set default to 25 kW/h if no query is provided
+  }
+}, []);
+
 
   const handleBackPress = () => {
-    setPowerConsumption(25); // Update power consumption on back press
-    router.back(); // Navigate back
+    router.push({
+      pathname: "/(tabs)/home", // Adjust according to your routing setup
+      query: { updatedPower: 25 }, // Pass the updated value back to Home
+    });
   };
+
 
   return (
     <View className="h-full bg-primary">
